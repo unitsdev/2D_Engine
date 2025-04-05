@@ -19,10 +19,6 @@ void App::Init(){
 void App::Render(){
   SDL_SetRenderDrawColor(renderer, 255,255,255,255);
   SDL_RenderClear(renderer);
-  //SDL_SetRenderDrawColor(renderer,0,0,0,255);
-  //SDL_Rect rect = {0,0,300,300};
-  //SDL_RenderFillRect(renderer,&rect);
-  //SDL_RenderCopy(renderer,Scene::GetRenderTexture(),nullptr,nullptr);
 }
 void App::Destroy(){
   SDL_DestroyWindow(window);
@@ -64,8 +60,6 @@ SDL_Renderer* App::GetRenderer(){
 SDL_Window* App::GetWindow(){
   return App::window;
 }
-
-
 bool App::Closed(){
   return !App::running;
 }

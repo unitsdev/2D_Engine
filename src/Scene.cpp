@@ -1,11 +1,9 @@
 #include "Scene.hpp"
-#include "viewport.hpp"
 #include "FileDialog.hpp"
 #include <iostream>
 using namespace std;
 SDL_Texture* Scene::Texture = nullptr;
 bool Scene::Active = false;
-string str = "";
 SDL_Event* Scene::ev;
 void Scene::SetTarget(){
   SDL_SetRenderTarget(App::GetRenderer(),Scene::Texture);
@@ -28,8 +26,7 @@ void Scene::Event(){
   }
   if(App::event.type ==SDL_KEYUP){
     if(App::event.key.keysym.sym == SDLK_SPACE){
-      FileDialog::th = thread(FileDialog::opendirectory,&str);
-      FileDialog::th.detach();
+
     }
   }
 }

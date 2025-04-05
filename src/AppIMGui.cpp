@@ -1,6 +1,6 @@
 #include "AppIMGui.hpp"
 #include "Scene.hpp"
-#include "viewport.hpp"
+#include "game.hpp"
 #include <iostream>
 using namespace std;
 void AImGui::Init(){
@@ -13,8 +13,6 @@ void AImGui::Init(){
   ImGui_ImplSDL2_InitForSDLRenderer(App::GetWindow(), App::GetRenderer());
   ImGui_ImplSDLRenderer2_Init(App::GetRenderer());
 }
-
-
 void AImGui::Destroy(){
   ImGui_ImplSDLRenderer2_Shutdown();
   ImGui_ImplSDL2_Shutdown();
@@ -28,6 +26,34 @@ void AImGui::Render(){
 
   //ImGui::SetNextWindowDockID(dockspace);
   //ImGui::SetNextWindowPos(ImVec2(App::WIDTH-260,0));
+  if (ImGui::BeginMainMenuBar()) {
+    if (ImGui::BeginMenu("File")) {
+      if(ImGui::MenuItem(TITLES::MENUBAR::CREATEPROJECT)){
+
+      }
+      if(ImGui::MenuItem(TITLES::MENUBAR::OPENPROJECT)){
+        GAME::Project::Open();
+      }
+      if(ImGui::MenuItem(TITLES::MENUBAR::SAVEPROJECT)){
+
+      }
+      if(ImGui::MenuItem(TITLES::MENUBAR::CLOSE)){
+        App::Close();
+      }
+      
+      ImGui::EndMenu();
+    }
+    string text = GAME::Project::GameRunning ? "Stop" : "Play";
+    int windowWidth = ImGui::GetWindowSize().x/2;
+    int textWidth = ImGui::CalcTextSize(text.c_str()).x;
+    ImGui::SetCursorPosX(windowWidth-textWidth);
+    if(ImGui::Button(text.c_str())){
+        GAME::Project::GameRunning = !GAME::Project::GameRunning;
+        if(GAME::Project::GameRunning == false){GAME::Project::Destroy();}
+
+    }
+    ImGui::EndMainMenuBar();
+  }
   ImGui::Begin(TITLES::SCENEMANAGER);
   ImGui::End();
   ImGui::Begin(TITLES::EXPLORER);
@@ -43,7 +69,9 @@ void AImGui::Render(){
   }
   if(ImGui::IsWindowFocused()){
     Scene::Active = true;
-  }else{Scene::Active=false;}
+  }else{
+    Scene::Active=false;
+  }
   ImGui::SetCursorPos(ImVec2{0,10});
   ImGui::Image((ImTextureID)Scene::Texture, { float(w), float(h) });
   ImGui::End();
