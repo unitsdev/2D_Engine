@@ -49,7 +49,12 @@ void AImGui::Render(){
     ImGui::SetCursorPosX(windowWidth-textWidth);
     if(ImGui::Button(text.c_str())){
         GAME::Project::GameRunning = !GAME::Project::GameRunning;
-        if(GAME::Project::GameRunning == false){GAME::Project::Destroy();}
+        if(GAME::Project::GameRunning==true){
+            GAME::Scene::Open();
+        }
+        else if(GAME::Project::GameRunning == false){
+          GAME::Scene::Close();
+        }
 
     }
     ImGui::EndMainMenuBar();

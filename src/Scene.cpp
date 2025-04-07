@@ -1,5 +1,6 @@
 #include "Scene.hpp"
 #include "FileDialog.hpp"
+#include "game.hpp"
 #include <iostream>
 using namespace std;
 SDL_Texture* Scene::Texture = nullptr;
@@ -40,6 +41,11 @@ void Scene::Render(){
   SDL_SetRenderDrawColor(App::GetRenderer(),0,0,0,255);
   SDL_Rect rect = {0,0,100,100};
   SDL_RenderFillRect(App::GetRenderer(),&rect);
+  if(GAME::Project::GameRunning){
+    if(GAME::Scene::Render != nullptr){
+      GAME::Scene::Render();
+    }
+  }
   //SDL_RenderSetViewport(App::GetRenderer(),nullptr);
   Scene::DefaultTarget();
 }

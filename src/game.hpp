@@ -10,7 +10,16 @@ namespace GAME{
         static std::string ProjectDirectory;
         static bool Init();
         static void Open();
-        static void Destroy();
   };
+  class Scene{
+      private:
+        static void* handle;
+        static void Compilation();
+        typedef void (*Func)();
+      public:
+        static Func Render;
+        static void Open();
+        static void Close();
+  };  
 };
 #endif //GAME_HPP
